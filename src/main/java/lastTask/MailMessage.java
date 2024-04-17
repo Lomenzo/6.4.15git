@@ -9,7 +9,16 @@ public class MailMessage extends FromTo<String>{
     ) {
         super.from = from;
         super.to = to;
-        super.content = content;
+        this.content = content;
+    }
+
+    @Override
+    public String toString() {
+        return "MailMessage{" +
+                "from='" + from + '\'' +
+                ", to='" + to + '\'' +
+                ", content=" + content +
+                '}';
     }
 
     public String getFrom() {

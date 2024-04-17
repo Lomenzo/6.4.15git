@@ -1,9 +1,6 @@
 package lastTask;
 
-import java.util.Arrays;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 import java.util.function.Consumer;
 import java.util.stream.Stream;
 
@@ -46,18 +43,26 @@ public class Main {
 // Обработка списка писем почтовым сервисом
         messages.stream().forEachOrdered(mailService);
 
-
-
-
-        Consumer<String> printConsumer = t -> System.out.println(t);
-        Stream<String> cities = Stream.of("Sydney", "New York", "London");
-        cities.forEach(printConsumer);
-
-
-
 // Получение и проверка словаря "почтового ящика",
-//   где по получателю можно получить список сообщений, которые были ему отправлены
-        //Map<String, List<String>> mailBox = mailService.getMailBox();
+//  где по получателю можно получить список сообщений, которые были ему отправлены
+        Map<String, List<String>> mailBox = mailService.getMailBox();
+
+        mailBox.forEach((a,b) -> System.out.println(a+b));
+
+        assert mailBox.get("H.P. Lovecraft").equals(
+                Arrays.asList(
+                        "This \"The Shadow over Innsmouth\" story is real masterpiece, Howard!"
+                )
+        ): "wrong mailService mailbox content (1)";
+
+        assert mailBox.get("Christopher Nolan").equals(
+                Arrays.asList(
+                        "Брат, почему все так хвалят только тебя, когда практически все сценарии написал я. Так не честно!",
+                        "Я так и не понял Интерстеллар."
+                )
+        ): "wrong mailService mailbox content (2)";
+
+        assert mailBox.get(randomTo).equals(Collections.<String>emptyList()): "wrong mailService mailbox content (3)";
 
     }
 }

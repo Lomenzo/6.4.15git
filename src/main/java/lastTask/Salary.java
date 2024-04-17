@@ -8,7 +8,7 @@ public class Salary extends FromTo<Integer>{
     ) {
         super.from = from;
         super.to = to;
-        super.content = content;
+        this.content = content;
     }
 
     public String getFrom() {
