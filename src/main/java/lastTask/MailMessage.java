@@ -5,7 +5,7 @@ public class MailMessage extends FromTo<String>{
 
     public MailMessage(         String from,
                                 String to,
-     /*РґР»СЏ СЃР°Р»Р°СЂРё Р±СѓРґРµС‚ РёРЅС‚?*/  String content   //Р·РґРµСЃСЊ РєРѕРЅС‚РµРЅС‚ СѓР¶Рµ СѓС‚РѕС‡РЅСЏРµС‚СЃСЏ РєР°Рє СЃС‚СЂРѕРєР°(РґР»СЏ РјРµСЃСЃР°РіРё)
+     /*для салари будет инт?*/  String content   //здесь контент уже уточняется как строка(для мессаги)
     ) {
         super.from = from;
         super.to = to;

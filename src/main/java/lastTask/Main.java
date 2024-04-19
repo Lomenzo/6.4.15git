@@ -7,9 +7,9 @@ import java.util.stream.Stream;
 public class Main {
     public static void main(String[] args) {
 
-        String randomFrom = "Normalno delay"; // РќРµРєРѕС‚РѕСЂР°СЏ СЃР»СѓС‡Р°Р№РЅР°СЏ СЃС‚СЂРѕРєР°. РњРѕР¶РµС‚Рµ РІС‹Р±СЂР°С‚СЊ РµРµ СЃР°РјРѕСЃС‚РѕСЏС‚РµР»СЊРЅРѕ.
-        String randomTo = "Normalno budet";  // РќРµРєРѕС‚РѕСЂР°СЏ СЃР»СѓС‡Р°Р№РЅР°СЏ СЃС‚СЂРѕРєР°. РњРѕР¶РµС‚Рµ РІС‹Р±СЂР°С‚СЊ РµРµ СЃР°РјРѕСЃС‚РѕСЏС‚РµР»СЊРЅРѕ.
-        int randomSalary = 10000;  // РќРµРєРѕС‚РѕСЂРѕРµ СЃР»СѓС‡Р°Р№РЅРѕРµ С†РµР»РѕРµ РїРѕР»РѕР¶РёС‚РµР»СЊРЅРѕРµ С‡РёСЃР»Рѕ. РњРѕР¶РµС‚Рµ РІС‹Р±СЂР°С‚СЊ РµРіРѕ СЃР°РјРѕСЃС‚РѕСЏС‚РµР»СЊРЅРѕ.
+        String randomFrom = "Normalno delay"; // Некоторая случайная строка. Можете выбрать ее самостоятельно.
+        String randomTo = "Normalno budet";  // Некоторая случайная строка. Можете выбрать ее самостоятельно.
+        int randomSalary = 10000;  // Некоторое случайное целое положительное число. Можете выбрать его самостоятельно.
 
         MailMessage firstMessage = new MailMessage(
                 "Robert Howard",
@@ -24,27 +24,27 @@ public class Main {
         MailMessage secondMessage = new MailMessage(
                 "Jonathan Nolan",
                 "Christopher Nolan",
-                "Р‘СЂР°С‚, РїРѕС‡РµРјСѓ РІСЃРµ С‚Р°Рє С…РІР°Р»СЏС‚ С‚РѕР»СЊРєРѕ С‚РµР±СЏ, РєРѕРіРґР° РїСЂР°РєС‚РёС‡РµСЃРєРё РІСЃРµ СЃС†РµРЅР°СЂРёРё РЅР°РїРёСЃР°Р» СЏ. РўР°Рє РЅРµ С‡РµСЃС‚РЅРѕ!"
+                "Брат, почему все так хвалят только тебя, когда практически все сценарии написал я. Так не честно!"
         );
 
         MailMessage thirdMessage = new MailMessage(
                 "Stephen Hawking",
                 "Christopher Nolan",
-                "РЇ С‚Р°Рє Рё РЅРµ РїРѕРЅСЏР» РРЅС‚РµСЂСЃС‚РµР»Р»Р°СЂ."
+                "Я так и не понял Интерстеллар."
         );
 
         List<MailMessage> messages = Arrays.asList(
                 firstMessage, secondMessage, thirdMessage
         );
 
-// РЎРѕР·РґР°РЅРёРµ РїРѕС‡С‚РѕРІРѕРіРѕ СЃРµСЂРІРёСЃР°.
+// Создание почтового сервиса.
         MailService<String> mailService = new MailService<>();
 
-// РћР±СЂР°Р±РѕС‚РєР° СЃРїРёСЃРєР° РїРёСЃРµРј РїРѕС‡С‚РѕРІС‹Рј СЃРµСЂРІРёСЃРѕРј
+// Обработка списка писем почтовым сервисом
         messages.stream().forEachOrdered(mailService);
 
-// РџРѕР»СѓС‡РµРЅРёРµ Рё РїСЂРѕРІРµСЂРєР° СЃР»РѕРІР°СЂСЏ "РїРѕС‡С‚РѕРІРѕРіРѕ СЏС‰РёРєР°",
-//  РіРґРµ РїРѕ РїРѕР»СѓС‡Р°С‚РµР»СЋ РјРѕР¶РЅРѕ РїРѕР»СѓС‡РёС‚СЊ СЃРїРёСЃРѕРє СЃРѕРѕР±С‰РµРЅРёР№, РєРѕС‚РѕСЂС‹Рµ Р±С‹Р»Рё РµРјСѓ РѕС‚РїСЂР°РІР»РµРЅС‹
+// Получение и проверка словаря "почтового ящика",
+//  где по получателю можно получить список сообщений, которые были ему отправлены
         Map<String, List<String>> mailBox = mailService.getMailBox();
 
         mailBox.forEach((a,b) -> System.out.println(a+b));
@@ -57,12 +57,34 @@ public class Main {
 
         assert mailBox.get("Christopher Nolan").equals(
                 Arrays.asList(
-                        "Р‘СЂР°С‚, РїРѕС‡РµРјСѓ РІСЃРµ С‚Р°Рє С…РІР°Р»СЏС‚ С‚РѕР»СЊРєРѕ С‚РµР±СЏ, РєРѕРіРґР° РїСЂР°РєС‚РёС‡РµСЃРєРё РІСЃРµ СЃС†РµРЅР°СЂРёРё РЅР°РїРёСЃР°Р» СЏ. РўР°Рє РЅРµ С‡РµСЃС‚РЅРѕ!",
-                        "РЇ С‚Р°Рє Рё РЅРµ РїРѕРЅСЏР» РРЅС‚РµСЂСЃС‚РµР»Р»Р°СЂ."
+                        "Брат, почему все так хвалят только тебя, когда практически все сценарии написал я. Так не честно!",
+                        "Я так и не понял Интерстеллар."
                 )
         ): "wrong mailService mailbox content (2)";
 
         assert mailBox.get(randomTo).equals(Collections.<String>emptyList()): "wrong mailService mailbox content (3)";
+        //ассерт не отрабатывает - НПЕ на сравнение со значением по ключу, которого нет
 
+        List<String> testEmpty = Collections.<String>emptyList();
+        List<String> emptyList = new ArrayList<>();
+        if (testEmpty.equals(emptyList)) {System.out.println("true-equals");}
+
+
+        //Тестовая среда
+        MailMessage testMessage1 = new MailMessage("AAA","BBB", "text 1");
+        MailMessage testMessage2 = new MailMessage("AAA","BBB", "text 2");
+        MailMessage testMessage3 = new MailMessage("AAA","BBB", "text 3");
+        MailMessage testMessage4 = new MailMessage("AAA","BBB", "text 4");
+        MailMessage testMessage5 = new MailMessage("AAA","BBB", "text 5");
+        MailMessage testMessage6 = new MailMessage("AAA","BBB", "text 6");
+        MailMessage testMessage7 = new MailMessage("AAA","BBB", "text 7");
+
+        List<MailMessage> testMessagesList = Arrays.asList(
+                testMessage1,testMessage2,testMessage3,testMessage4,testMessage5,testMessage6,testMessage7
+        );
+        MailService<String> testMmailService = new MailService<>();
+        testMessagesList.stream().forEachOrdered(testMmailService);
+        Map<String, List<String>> testMailBox = testMmailService.getMailBox();
+        testMailBox.forEach((a,b) -> System.out.println(a+b));
     }
 }

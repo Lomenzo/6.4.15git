@@ -4,7 +4,7 @@ public class Salary extends FromTo<Integer>{
 
     public Salary(              String from,
                                 String to,
-            /*РґР»СЏ СЃР°Р»Р°СЂРё Р±СѓРґРµС‚ РёРЅС‚?*/  Integer content   //Р·РґРµСЃСЊ РєРѕРЅС‚РµРЅС‚ СѓР¶Рµ СѓС‚РѕС‡РЅСЏРµС‚СЃСЏ РєР°Рє СЃС‚СЂРѕРєР°(РґР»СЏ РјРµСЃСЃР°РіРё)
+            /*для салари будет инт?*/  Integer content   //здесь контент уже уточняется как строка(для мессаги)
     ) {
         super.from = from;
         super.to = to;

@@ -1,32 +1,56 @@
 package lastTask;
 
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 import java.util.function.Consumer;
 
-//MailService РІ СЌС‚РѕР№ Р·Р°РґР°С‡Рµ Р±СѓРґРµС‚ РёСЃРїРѕР»СЊР·РѕРІР°РЅ РєР°Рє СЃС‚СЂРѕРєР° (РґР»СЏ РјРµСЃСЃР°Рі) Рё РєР°Рє С‡РёСЃР»Рѕ (РґР»СЏ Р·Рї) РїРѕСЌС‚РѕРјСѓ РѕРЅ РґР¶РµРЅРµСЂРёРє<S>
+//MailService в этой задаче будет использован как строка (для мессаг) и как число (для зп) поэтому он дженерик<S>
 public class MailService<T> implements Consumer<Sendable<T>> {
 
-    Map<String, List<String>> hashMap = new HashMap<>();
+    Map<String, List<String>> hashMap = new MailBox();
+    List<String> listString = new ArrayList<>();
 
     @Override
     public void accept(Sendable<T> tSendable) {
-        String a = (String)tSendable.getContent();
+        String stroka = (String)tSendable.getContent();
 //        Sendable<String> sSendable = tSendable<>();
-        List<String> listString = new ArrayList<>();
-        listString.add(a);
-        hashMap.putIfAbsent(tSendable.getTo(),listString);          //Р°РґСЂРµСЃР°С‚ СЌС‚Рѕ СЃС‚СЂРёРЅРіР°, Р° РІРѕС‚ СЃРѕРґРµСЂР¶РёРјРѕРµ...Рў
+        listString.add(stroka);
+//        hashMap.merge(tSendable.getTo(), new ArrayList<>(), ArrayList::add(stroka));
+//        hashMap.compute(tSendable.getTo(),(k,v) -> (k == null)?(new ArrayList<>()):(v = hashMap.get(k).add("ad")));
+
+//        hashMap.putIfAbsent(tSendable.getTo(), listString);
+//        hashMap.computeIfPresent(tSendable.getTo(), List::add(stroka));
+        hashMap.merge(tSendable.getTo(),new ArrayList<String>(listString), (old, newlist) -> {old.add(stroka);return old;});
+//        hashMap.putIfAbsent(tSendable.getTo(),listString);          //адресат это стринга, а вот содержимое...Т
+//        //мапа съедает предыдущую строку листа, перезаписывая поверх, нужно придумать логику IfPresent
+        listString.clear();
+
+//        // Alisa:computeIfPresent
+//        hashMap.computeIfPresent(tSendable.getTo(),(key, value) -> {List<String> updatedValue = new ArrayList<>(value);
+//                    updatedValue.add(stroka);
+//                    return updatedValue;
+//                });
+
+//        hashMap.merge(tSendable.getTo(), listString, (key, value) -> {List<String> updatedValue = new ArrayList<>(value);
+//            updatedValue.add(stroka);
+//            return updatedValue;
+//        });
+
+    // Alisa:merge
+        // Обновление списка фруктов для "Apples", если ключ "Apples" присутствует
+//List<String> fruits = quantities.merge("Apples", new ArrayList<>(), (oldList, newList) -> {oldList.addAll(newList);
+//            return oldList;});
+        //В этом примере, если ключ "To" присутствует в HashMap, его значение будет обновлено добавлением
+        //элемента "stroka" в список. Если ключа нет, метод вернет null.
+
+
 //        System.out.println(tSendable);
-//        System.out.println(a);
+//        System.out.println(stroka);
     }
 
 
-
-        //РќСѓР¶РµРЅ РјРµС‚РѕРґ, РєРѕС‚РѕСЂС‹Р№ РґР°СЃС‚ СЃРїРёСЃРѕРє РјРµСЃСЃР°Рі РїРѕ Р°РґСЂРµСЃР°С‚Сѓ, РѕРґРЅР°РєРѕ РґР»СЏ СЌС‚РѕРіРѕ РЅСѓР¶РЅРѕ РїРѕР»Рµ РјР°РїР°-Р±РёР±Р»РёРѕС‚РµРєР° (СЃС‚СЂРѕРєР°),
-        //Рё РґР»СЏ С‚РѕРіРѕ, С‡С‚РѕР±С‹ РѕРЅР° РІСЃС‘ СЌС‚Рѕ С…СЂР°РЅРёР»Р° - РЅРµРѕР±С…РѕРґРёРјРѕ РЅР°СѓС‡РёС‚СЊ РєРѕРЅСЃСѓРјРµСЂ.Р°СЃСЃРµРїС‚ РєР»Р°СЃС‚СЊ СЌС‚Рѕ С‚СѓРґР°
-        // С‚.Рµ. СЂРµР°Р»РёР·РѕРІР°С‚СЊ СЃС‚СЂРѕРєСѓ 14
+        //Нужен метод, который даст список мессаг по адресату, однако для этого нужно поле мапа-библиотека (строка),
+        //и для того, чтобы она всё это хранила - необходимо научить консумер.ассепт класть это туда
+        // т.е. реализовать строку 14
     public Map<String, List<String>> getMailBox () {
 //        Map<String, List<String>> hashMap = new HashMap<>();
         return hashMap;
