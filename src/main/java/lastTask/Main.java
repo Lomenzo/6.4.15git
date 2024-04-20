@@ -37,6 +37,7 @@ public class Main {
                 firstMessage, secondMessage, thirdMessage
         );
 
+
 // Создание почтового сервиса.
         MailService<String> mailService = new MailService<>();
 
@@ -63,11 +64,36 @@ public class Main {
         ): "wrong mailService mailbox content (2)";
 
         assert mailBox.get(randomTo).equals(Collections.<String>emptyList()): "wrong mailService mailbox content (3)";
-        //ассерт не отрабатывает - НПЕ на сравнение со значением по ключу, которого нет
 
-        List<String> testEmpty = Collections.<String>emptyList();
-        List<String> emptyList = new ArrayList<>();
-        if (testEmpty.equals(emptyList)) {System.out.println("true-equals");}
+        // Создание списка из трех зарплат.
+        Salary salary1 = new Salary("Facebook", "Mark Zuckerberg", 1);
+        Salary salary2 = new Salary("FC Barcelona", "Lionel Messi", Integer.MAX_VALUE);
+        Salary salary3 = new Salary(randomFrom, randomTo, randomSalary);
+
+       //TODO
+// Создание почтового сервиса, обрабатывающего зарплаты.
+        MailService<Integer> salaryService = new MailService<>();
+
+// Обработка списка зарплат почтовым сервисом
+        Arrays.asList(salary1, salary2, salary3).forEach(salaryService);
+
+// Получение и проверка словаря "почтового ящика",
+//   где по получателю можно получить список зарплат, которые были ему отправлены.
+        Map<String, List<Integer>> salaries = salaryService.getMailBox();
+        assert salaries.get(salary1.getTo()).equals(Arrays.asList(1)): "wrong salaries mailbox content (1)";
+        assert salaries.get(salary2.getTo()).equals(Arrays.asList(Integer.MAX_VALUE)): "wrong salaries mailbox content (2)";
+        assert salaries.get(randomTo).equals(Arrays.asList(randomSalary)): "wrong salaries mailbox content (3)";
+
+
+
+
+
+
+
+
+
+
+
 
 
         //Тестовая среда
@@ -86,5 +112,12 @@ public class Main {
         testMessagesList.stream().forEachOrdered(testMmailService);
         Map<String, List<String>> testMailBox = testMmailService.getMailBox();
         testMailBox.forEach((a,b) -> System.out.println(a+b));
+
+        //Тест на equals (NPE)
+        List<String> testEmpty = Collections.<String>emptyList();
+        List<String> emptyList = new ArrayList<>();
+        if (testEmpty.equals(emptyList)) {System.out.println("true-equals");}
+
+
     }
 }

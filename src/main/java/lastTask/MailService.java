@@ -6,23 +6,25 @@ import java.util.function.Consumer;
 //MailService в этой задаче будет использован как строка (для мессаг) и как число (для зп) поэтому он дженерик<S>
 public class MailService<T> implements Consumer<Sendable<T>> {
 
-    Map<String, List<String>> hashMap = new MailBox();
-    List<String> listString = new ArrayList<>();
+    //Map<String, List<T>> hashMap = new MailBox();
+    MailBox<String,List<T>> hmap = new MailBox<>();
+//    Map<String,List<Integer>> hashMapInt = new MailBox<>();
+//    List<? extends FromTo<T>> testGenericList = new ArrayList<>();
+    List<T> testGenericTList = new ArrayList<>();
+    //List<String> listString = new ArrayList<>();
+
+    //String stroka = (String)tSendable.getContent();
+    //listString.add(stroka);
+    //hashMap.merge(tSendable.getTo(),new ArrayList<String>(listString), (old, newlist) -> {old.add(stroka);return old;});
+    //listString.clear();
 
     @Override
     public void accept(Sendable<T> tSendable) {
-        String stroka = (String)tSendable.getContent();
-//        Sendable<String> sSendable = tSendable<>();
-        listString.add(stroka);
-//        hashMap.merge(tSendable.getTo(), new ArrayList<>(), ArrayList::add(stroka));
-//        hashMap.compute(tSendable.getTo(),(k,v) -> (k == null)?(new ArrayList<>()):(v = hashMap.get(k).add("ad")));
-
-//        hashMap.putIfAbsent(tSendable.getTo(), listString);
-//        hashMap.computeIfPresent(tSendable.getTo(), List::add(stroka));
-        hashMap.merge(tSendable.getTo(),new ArrayList<String>(listString), (old, newlist) -> {old.add(stroka);return old;});
-//        hashMap.putIfAbsent(tSendable.getTo(),listString);          //адресат это стринга, а вот содержимое...Т
-//        //мапа съедает предыдущую строку листа, перезаписывая поверх, нужно придумать логику IfPresent
-        listString.clear();
+        testGenericTList.add(tSendable.getContent());
+        hmap.merge(tSendable.getTo(),new ArrayList<>(testGenericTList),
+                (old, newlist) -> {old.add(tSendable.getContent());return old;});
+        testGenericTList.clear();
+        //listString.clear();//кусок старого решения, не уверен что по итогу он был функционально нужен
 
 //        // Alisa:computeIfPresent
 //        hashMap.computeIfPresent(tSendable.getTo(),(key, value) -> {List<String> updatedValue = new ArrayList<>(value);
@@ -51,8 +53,22 @@ public class MailService<T> implements Consumer<Sendable<T>> {
         //Нужен метод, который даст список мессаг по адресату, однако для этого нужно поле мапа-библиотека (строка),
         //и для того, чтобы она всё это хранила - необходимо научить консумер.ассепт класть это туда
         // т.е. реализовать строку 14
-    public Map<String, List<String>> getMailBox () {
+    public Map<String, List<T>> getMailBox () {
 //        Map<String, List<String>> hashMap = new HashMap<>();
-        return hashMap;
+        return hmap;
     }
+
+//    public Map<String, List<Integer>> getMailBox () {
+//        return hashMapInt;
+//    }
+
 }
+
+
+
+    //List<String> listString = new ArrayList<>();
+
+        //String stroka = (String)tSendable.getContent();
+        //listString.add(stroka);
+        //hashMap.merge(tSendable.getTo(),new ArrayList<String>(listString), (old, newlist) -> {old.add(stroka);return old;});
+        //listString.clear();
