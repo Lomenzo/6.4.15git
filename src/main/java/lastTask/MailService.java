@@ -5,9 +5,12 @@ import java.util.function.Consumer;
 
 //MailService в этой задаче будет использован как строка (для мессаг) и как число (для зп) поэтому он дженерик<S>
 public class MailService<T> implements Consumer<Sendable<T>> {
+//MailService<Integer> salaryService = new MailService<>();
+//MailService<String> mailService = new MailService<>();
 
     //Map<String, List<T>> hashMap = new MailBox();
-    MailBox<String,List<T>> hmap = new MailBox<>();
+    //TODO
+    HashMap<String, List<T>> hmap = new MailBox<>();
 //    Map<String,List<Integer>> hashMapInt = new MailBox<>();
 //    List<? extends FromTo<T>> testGenericList = new ArrayList<>();
     List<T> testGenericTList = new ArrayList<>();
@@ -53,15 +56,12 @@ public class MailService<T> implements Consumer<Sendable<T>> {
         //Нужен метод, который даст список мессаг по адресату, однако для этого нужно поле мапа-библиотека (строка),
         //и для того, чтобы она всё это хранила - необходимо научить консумер.ассепт класть это туда
         // т.е. реализовать строку 14
+        //Map<String, List<String>> mailBox = mailService.getMailBox();
+        //Map<String, List<Integer>> salaries = salaryService.getMailBox();
     public Map<String, List<T>> getMailBox () {
 //        Map<String, List<String>> hashMap = new HashMap<>();
         return hmap;
     }
-
-//    public Map<String, List<Integer>> getMailBox () {
-//        return hashMapInt;
-//    }
-
 }
 
 

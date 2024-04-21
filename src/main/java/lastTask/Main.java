@@ -63,6 +63,7 @@ public class Main {
                 )
         ): "wrong mailService mailbox content (2)";
 
+        //TODO
         assert mailBox.get(randomTo).equals(Collections.<String>emptyList()): "wrong mailService mailbox content (3)";
 
         // Создание списка из трех зарплат.
@@ -70,7 +71,6 @@ public class Main {
         Salary salary2 = new Salary("FC Barcelona", "Lionel Messi", Integer.MAX_VALUE);
         Salary salary3 = new Salary(randomFrom, randomTo, randomSalary);
 
-       //TODO
 // Создание почтового сервиса, обрабатывающего зарплаты.
         MailService<Integer> salaryService = new MailService<>();
 

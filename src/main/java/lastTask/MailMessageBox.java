@@ -1,4 +1,4 @@
-package lastTask;
+/*package lastTask;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -15,4 +15,4 @@ public class MailMessageBox extends MailBox<String, List<String>> {
             return super.getOrDefault(keyString,emptyListForEqualsTest);
         }
     }
-
+*/

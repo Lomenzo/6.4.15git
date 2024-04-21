@@ -1,4 +1,4 @@
-package lastTask;
+/*package lastTask;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -14,4 +14,4 @@ public class MailSalaryBox extends MailBox<String, List<Integer>> {
         List<Integer> emptyListForEqualsTest = new ArrayList<>();
         return super.getOrDefault(keyString,emptyListForEqualsTest);
     }
-}
+}*/

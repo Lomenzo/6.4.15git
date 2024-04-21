@@ -12,24 +12,14 @@ public class MailMessage extends FromTo<String>{
         this.content = content;
     }
 
-    @Override
-    public String toString() {
-        return "MailMessage{" +
-                "from='" + from + '\'' +
-                ", to='" + to + '\'' +
-                ", content=" + content +
-                '}';
-    }
+//    @Override
+//    public String toString() {
+//        return "MailMessage{" +
+//                "from='" + from + '\'' +
+//                ", to='" + to + '\'' +
+//                ", content=" + content +
+//                '}';
+//    }
 
-    public String getFrom() {
-        return from;
-    }
 
-    public String getTo() {
-        return to;
-    }
-
-    public String getContent() {
-        return content;
-    }
 }

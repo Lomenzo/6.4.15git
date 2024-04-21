@@ -11,16 +11,5 @@ public class Salary extends FromTo<Integer>{
         this.content = content;
     }
 
-    public String getFrom() {
-        return from;
-    }
-
-    public String getTo() {
-        return to;
-    }
-
-    public Integer getContent() {
-        return content;
-    }
 
 }
